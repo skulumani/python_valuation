@@ -6,10 +6,9 @@ import json
 
 class FinanceModelingPrep:
     
-    url_base = "https://financialmodelingprep.com/api/v3/"
 
     def __init__(self):
-        pass
+        self.url_base = "https://financialmodelingprep.com/api/v3/"
 
     def get_data(self, url):
         response = urlopen(url)
