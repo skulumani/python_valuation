@@ -3,6 +3,7 @@
 from urllib.request import urlopen
 from urllib.parse import urljoin
 import json
+import argparse
 
 class FinanceModelingPrep:
     
@@ -54,16 +55,25 @@ class FinanceModelingPrep:
         # compute valuation
         value_graham = eps * (8.5 + 2 * eps_growth)
         # return estimate value
-        return (value_graham, price)
+        return (price, value_graham)
 
 if __name__ == "__main__":
-    ticker = "AAPL"
+    # ticker = "AAPL"
 
-    fmp = FinanceModelingPrep()
+    # fmp = FinanceModelingPrep()
     
-    print(fmp.get_annual_financials(ticker)['financials'][0]['EPS'])
-    print(fmp.get_growth(ticker)['growth'][0]['EPS Growth'])
-    print(fmp.get_quote(ticker)[0]['price'])
+    # print(fmp.get_annual_financials(ticker)['financials'][0]['EPS'])
+    # print(fmp.get_growth(ticker)['growth'][0]['EPS Growth'])
+    # print(fmp.get_quote(ticker)[0]['price'])
 
-    print(fmp.get_valuation(ticker))
+    # print(fmp.get_valuation(ticker))
+    
+    parser = argparse.ArgumentParser()
+    parser.add_argument("ticker", help="Stock ticker symbol")
+    args = parser.parse_args()
 
+    if args.ticker:
+        fmp = FinanceModelingPrep()
+        valuation = fmp.get_valuation(args.ticker)
+        print("{:<8s} {:<8s} {:<8s} {:<8s}".format("Ticker", "Price", "Value", "P/V Ratio"))
+        print("{:<8s} {:<8.2f} {:<8.2f} {:<8.2f}".format(args.ticker,valuation[0], valuation[1], valuation[0]/valuation[1]))
