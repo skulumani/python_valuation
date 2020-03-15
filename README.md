@@ -9,3 +9,11 @@ This utilizes the [Financial Modeling API](https://financialmodelingprep.com/dev
 # Dependencies
 
 Python - Use anaconda
+
+# Examples
+
+https://github.com/WillKoehrsen/Data-Analysis/tree/master/stocker
+
+https://facebook.github.io/prophet/docs/quick_start.html
+
+https://towardsdatascience.com/stock-prediction-in-python-b66555171a2
