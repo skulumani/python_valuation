@@ -6,4 +6,6 @@ This utilizes the [Financial Modeling API](https://financialmodelingprep.com/dev
 2. Compute a valuation
 3. Provide some metric if it's a good/bad time to buy
 
+# Dependencies
 
+Python - Use anaconda
