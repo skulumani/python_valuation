@@ -27,6 +27,7 @@ class FinanceModelingPrep:
         return data
 
     def get_annual_financials(self, ticker):
+        """This can get batch data, comma seperated list of tickers"""
         url = urljoin(self.url_base, "financials/income-statement/" + ticker)
         data = self.get_data(url)
         return data
@@ -41,6 +42,19 @@ class FinanceModelingPrep:
         data = self.get_data(url)
         return data
 
+    def get_real_time_price(self, ticker):
+        """Can get batch data"""
+        url = urljoin(self.url_base, "real-time-price/", ticker)
+        data = self.get_data(url)
+    
+    def form_ticker_string(self, tickers):
+        """Form a comma seperate list of tickers. Then can be appended to the URL"""
+        ticker_string = ""
+        for ticker in tickers:
+            ticker_string = ticker_string + ticker + ","
+
+        return ticker_string
+
     def get_valuation(self, ticker):
         # get all the required data
         financial_data = self.get_annual_financials(ticker)
@@ -54,26 +68,19 @@ class FinanceModelingPrep:
 
         # compute valuation
         value_graham = eps * (8.5 + 2 * eps_growth)
+        print("{:<8s} {:<8.2f} {:<8.2f} {:<8.2f}".format(ticker,price, value_graham, price/value_graham))
         # return estimate value
         return (price, value_graham)
 
 if __name__ == "__main__":
-    # ticker = "AAPL"
-
-    # fmp = FinanceModelingPrep()
-    
-    # print(fmp.get_annual_financials(ticker)['financials'][0]['EPS'])
-    # print(fmp.get_growth(ticker)['growth'][0]['EPS Growth'])
-    # print(fmp.get_quote(ticker)[0]['price'])
-
-    # print(fmp.get_valuation(ticker))
     
     parser = argparse.ArgumentParser()
-    parser.add_argument("ticker", help="Stock ticker symbol")
+    parser.add_argument("ticker", help="Stock ticker symbol", nargs="*", default=["AAPL"])
     args = parser.parse_args()
 
-    if args.ticker:
-        fmp = FinanceModelingPrep()
-        valuation = fmp.get_valuation(args.ticker)
-        print("{:<8s} {:<8s} {:<8s} {:<8s}".format("Ticker", "Price", "Value", "P/V Ratio"))
-        print("{:<8s} {:<8.2f} {:<8.2f} {:<8.2f}".format(args.ticker,valuation[0], valuation[1], valuation[0]/valuation[1]))
+    fmp = FinanceModelingPrep()
+   
+    tickers = args.ticker
+    print("{:<8s} {:<8s} {:<8s} {:<8s}".format("Ticker", "Price", "Value", "P/V Ratio"))
+    for ticker in tickers:
+        valuation = fmp.get_valuation(ticker)
