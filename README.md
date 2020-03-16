@@ -10,6 +10,19 @@ This utilizes the [Financial Modeling API](https://financialmodelingprep.com/dev
 
 Python - Use anaconda
 
+# Metrics
+
+* P/E
+* P/S
+* P/B
+* P/CF
+* P/FCF
+* EPS Growth
+* Operating Margin
+* Net Margin
+* Debt/Equity
+* Debt/Cash
+
 # Examples
 
 https://github.com/WillKoehrsen/Data-Analysis/tree/master/stocker
