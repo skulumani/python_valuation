@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # API to interface with https://financialmodelingprep.com/developer/docs/
 
 from urllib.request import urlopen
