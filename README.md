@@ -23,6 +23,26 @@ Python - Use anaconda
 * Debt/Equity
 * Debt/Cash
 
+# Financial Data (used to compute Metrics)
+* Market Cap
+* Revenue (or sales)
+* Cost of Revenue
+* Earnings (or profit or net income)
+* Total Assets
+* Total Liabilities
+* Shares Issued
+
+# Financial Data (useful for analysing securities)
+* Cash (or cash equivalents
+* Current Debt
+* Current Portion of Long Term Debt
+* Long Term Debt
+* Gross Margin (Total Revenue - Cost of Revenue) / Total Revenue
+* Operating Margin (Total Revenue - Cost of Revenue - Operating Income/Expense) / Total Revenue
+* Net Profit Margin (TR - COR - OI/E - Interest - Taxes) / Total Revenue
+* R&D Expenses
+
+
 # Examples
 
 https://github.com/WillKoehrsen/Data-Analysis/tree/master/stocker
