@@ -1,0 +1,36 @@
+CSV Output from Script
+Limited version with mostly calculated values
+
+From Profile
+* Symbol
+* Price
+* Company Name
+* Industry
+* Sector
+
+From Quote
+* Price
+* EPS
+
+From Financials/Income Statement
+* R&D Expenses
+
+From Financials/Balance Sheet
+* Cash and cash equivalents
+* Short-term Debt
+* Total shareholders equity
+
+From Financial Statement Growth
+* 5 year net income growth (per share)
+
+From Financial Ratios
+* Price/Book 
+* Price/Sales
+* Price/Earnings
+* Price/FCF
+* Price/CF
+* PEG (price/earnings/growth)
+* Operating profit margin
+* Net profit margin
+
+
