@@ -31,6 +31,26 @@ class FinanceModelingPrep:
         url = urljoin(self.url_base, "financials/income-statement/" + ticker)
         data = self.get_data(url)
         return data
+    
+    def get_annual_balance_sheet(self, ticker):
+        url = urljoin(self.url_base, "financials/balance-sheet-statement/" + ticker)
+        data = self.get_data(url)
+        return data
+    
+    def get_cash_flow(self, ticker):
+        url = urljoin(self.url_base, "financials/cash-flow-statement/" + ticker)
+        data = self.get_data(url)
+        return data
+    
+    def get_ratios(self, ticker):
+        url = urljoin(self.url_base, "financial-ratios/" + ticker)
+        data = self.get_data(url)
+        return data
+    
+    def get_key_metrics(self, ticker):
+        url = urljoin(self.url_base, "company-key-metrics/" + ticker)
+        data = self.get_data(url)
+        return data
 
     def get_rating(self, ticker):
         url = urljoin(self.url_base, "company/rating/" + ticker)
