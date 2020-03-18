@@ -84,20 +84,22 @@ class FinanceModelingPrep:
 
         # extract out the data we need
         eps = float(financial_data['financials'][0]['EPS'])
-        eps_growth = float(growth_data['growth'][0]['EPS Growth'])
+        eps_growth = float(growth_data['growth'][0]['5Y Net Income Growth (per Share)'])
         price = float(quote_data[0]['price'])
-
+       
         # compute graham valuation
-        value_graham = eps * (8.5 + 2 * eps_growth)
-        print("{:<8s} {:<8.2f} {:<8.2f} {:<8.2f}".format(ticker,price, value_graham, price/value_graham))
+        value_graham = eps * (8.5 + 2 * eps_growth*100)
+        value_exp = eps * 12 * (1 + eps_growth)**5
         # return estimate value
-        return (price, value_graham)
     
         # compute exponential growth valuation
-        value_exp = eps * 12 * (1 + eps_growth)^5
-        print("{:<8s} {:<8.2f} {:<8.2f} {:<8.2f}".format(ticker,price, value_exp, price/value_exp))
+        print("{:<16s} {:<16.2f} {:<16.2f} {:<16.2f} {:<16.2f}".format(ticker,
+                                                                  price,
+                                                                  value_exp, 
+                                                                  value_graham, 
+                                                                  price/value_exp))
         # return estimate value
-        return (price, value_exp)
+        return (price, value_exp, value_graham)
 
 if __name__ == "__main__":
     
@@ -108,6 +110,6 @@ if __name__ == "__main__":
     fmp = FinanceModelingPrep()
    
     tickers = args.ticker
-    print("{:<8s} {:<8s} {:<8s} {:<8s}".format("Ticker", "Price", "Value", "P/V Ratio"))
+    print("{:<16s} {:<16s} {:<16s} {:<16s} {:<16s}".format("Ticker", "Price", "Value Exp", "Value Gr.", "P/V Ratio"))
     for ticker in tickers:
         valuation = fmp.get_valuation(ticker)
