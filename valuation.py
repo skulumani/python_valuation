@@ -114,7 +114,6 @@ class FinanceModelingPrep:
         eps_growth = float(growth_data['growth'][0]['5Y Net Income Growth (per Share)'])
         price = float(quote_data[0]['price'])
 
-        csv_writer.writeheader()
         csv_writer.writerow({'ticker': ticker, 'eps': eps, 'eps_growth': eps_growth})
 
 
@@ -127,6 +126,7 @@ if __name__ == "__main__":
     csv_file = open("output.csv", mode='w')
     fieldnames = ['ticker', 'eps', 'eps_growth']
     writer = csv.DictWriter(csv_file, fieldnames=fieldnames,delimiter=',')
+    writer.writeheader()
 
     fmp = FinanceModelingPrep()
    
