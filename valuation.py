@@ -77,16 +77,18 @@ class FinanceModelingPrep:
 
         return ticker_string
 
-    def get_valuation(self, ticker):
-        # get all the required data
-        financial_data = self.get_annual_financials(ticker)
-        growth_data = self.get_growth(ticker)
-        quote_data = self.get_quote(ticker)
+    def get_stock_data(self, tickers):
+        """Single function to get all the data and store as member variables"""
+        self.financial_data = self.get_annual_financials(ticker)
+        self.growth_data = self.get_growth(ticker)
+        self.quote_data = self.get_quote(ticker)
 
+
+    def get_valuation(self, ticker):
         # extract out the data we need
-        eps = float(financial_data['financials'][0]['EPS'])
-        eps_growth = float(growth_data['growth'][0]['5Y Net Income Growth (per Share)'])
-        price = float(quote_data[0]['price'])
+        eps = float(self.financial_data['financials'][0]['EPS'])
+        eps_growth = float(self.growth_data['growth'][0]['5Y Net Income Growth (per Share)'])
+        price = float(self.quote_data[0]['price'])
        
         # compute graham valuation
         value_graham = eps * (8.5 + 2 * eps_growth*100)
@@ -104,15 +106,10 @@ class FinanceModelingPrep:
 
     def output_csv(self, ticker, csv_writer):
         """Given the ticker and a csv_file (from csv package) - output a bunch fo data to a CSV"""
-        # get all the required data
-        financial_data = self.get_annual_financials(ticker)
-        growth_data = self.get_growth(ticker)
-        quote_data = self.get_quote(ticker)
-
         # extract out the data we need
-        eps = float(financial_data['financials'][0]['EPS'])
-        eps_growth = float(growth_data['growth'][0]['5Y Net Income Growth (per Share)'])
-        price = float(quote_data[0]['price'])
+        eps = float(self.financial_data['financials'][0]['EPS'])
+        eps_growth = float(self.growth_data['growth'][0]['5Y Net Income Growth (per Share)'])
+        price = float(self.quote_data[0]['price'])
 
         csv_writer.writerow({'ticker': ticker, 'eps': eps, 'eps_growth': eps_growth})
 
@@ -133,7 +130,8 @@ if __name__ == "__main__":
     tickers = args.ticker
     print("{:<16s} {:<16s} {:<16s} {:<16s} {:<16s}".format("Ticker", "Price", "Value Exp", "Value Gr.", "P/V Ratio"))
     for ticker in tickers:
-        # valuation = fmp.get_valuation(ticker)
+        fmp.get_stock_data(ticker)
+        valuation = fmp.get_valuation(ticker)
         fmp.output_csv(ticker, writer)
 
     csv_file.close()
