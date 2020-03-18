@@ -87,11 +87,17 @@ class FinanceModelingPrep:
         eps_growth = float(growth_data['growth'][0]['EPS Growth'])
         price = float(quote_data[0]['price'])
 
-        # compute valuation
+        # compute graham valuation
         value_graham = eps * (8.5 + 2 * eps_growth)
         print("{:<8s} {:<8.2f} {:<8.2f} {:<8.2f}".format(ticker,price, value_graham, price/value_graham))
         # return estimate value
         return (price, value_graham)
+    
+        # compute exponential growth valuation
+        value_exp = eps * 12 * (1 + eps_growth)^5
+        print("{:<8s} {:<8.2f} {:<8.2f} {:<8.2f}".format(ticker,price, value_exp, price/value_exp))
+        # return estimate value
+        return (price, value_exp)
 
 if __name__ == "__main__":
     
