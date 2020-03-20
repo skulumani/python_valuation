@@ -117,7 +117,12 @@ class FinanceModelingPrep:
 if __name__ == "__main__":
     
     parser = argparse.ArgumentParser()
-    parser.add_argument("ticker", help="Stock ticker symbol", nargs="*", default=["AAPL"])
+    group = parser.add_mutually_exclusive_group()
+    
+    group.add_argument("-t", "--ticker", help="Stock ticker symbol", nargs="*")
+    group.add_argument("-a", "--all", help="Use stock_list.csv and get all data",
+                        action="store_true")
+
     args = parser.parse_args()
 
     csv_file = open("output.csv", mode='w')
@@ -126,12 +131,29 @@ if __name__ == "__main__":
     writer.writeheader()
 
     fmp = FinanceModelingPrep()
-   
-    tickers = args.ticker
+    
     print("{:<16s} {:<16s} {:<16s} {:<16s} {:<16s}".format("Ticker", "Price", "Value Exp", "Value Gr.", "P/V Ratio"))
-    for ticker in tickers:
-        fmp.get_stock_data(ticker)
-        valuation = fmp.get_valuation(ticker)
-        fmp.output_csv(ticker, writer)
+    if args.ticker:
+        tickers = args.ticker
+
+        for ticker in tickers:
+            fmp.get_stock_data(ticker)
+            valuation = fmp.get_valuation(ticker)
+            fmp.output_csv(ticker, writer)
+    elif args.all:
+        # read stocks from CSV and put in a big list
+        with open("stock_list.csv") as input_file:
+            tickers = input_file.readlines()
+    
+        tickers = [ticker.strip() for ticker in tickers]
+        for ticker in tickers:
+            # get data for each one
+            try:
+                fmp.get_stock_data(ticker)
+                valuation = fmp.get_valuation(ticker)
+                # write to CSV
+                fmp.output_csv(ticker, writer)
+            except: 
+                print("{} has no data".format(ticker))
 
     csv_file.close()
