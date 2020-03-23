@@ -1,0 +1,6 @@
+name: valuation
+dependencies:
+  - python=3.8
+  - bs4
+  - numpy
+  - ipython

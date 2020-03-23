@@ -3,6 +3,7 @@
 
 from urllib.request import urlopen
 from urllib.parse import urljoin
+from bs4 import BeautifulSoup
 import json
 import argparse
 import csv
@@ -112,6 +113,15 @@ class FinanceModelingPrep:
         price = float(self.quote_data[0]['price'])
 
         csv_writer.writerow({'ticker': ticker, 'eps': eps, 'eps_growth': eps_growth})
+
+    def get_morningstar(self, ticker):
+        """Get growth estimates from Morningstar"""
+
+        # form url
+
+        # extract out table
+
+        # save to member
 
 
 if __name__ == "__main__":
