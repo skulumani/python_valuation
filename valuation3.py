@@ -140,7 +140,7 @@ with open("Stock Data Output.csv", mode = "w") as Output:
 
 
 #   """Opens the list of stock tickers that we are getting data for"""
-with open("Stocks.txt", "r") as file:
+with open("stock_list.txt", "r") as file:
     lines = []
     for ticker in file:
         try:        
