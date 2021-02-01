@@ -82,11 +82,11 @@ class FinanceModelingPrep:
 
     def get_stock_data(self, tickers):
         """Single function to get all the data and store as member variables"""
+        self.profile_data = self.get_profile(ticker) 
         self.financial_data = self.get_annual_financials(ticker)
         self.growth_data = self.get_growth(ticker)
         self.quote_data = self.get_quote(ticker)
         self.key_metrics_data = self.get_key_metrics(ticker)
-        self.profile_data = self.get_profile(ticker)
         self.financial_ratios_data = self.get_ratios(ticker)
 
 
@@ -109,13 +109,14 @@ class FinanceModelingPrep:
 
 #   """Writes stock data to CSV"""
     def write_to_csv(self, ticker):
-        with open("Stock Data Output.csv", mode = "a", newline = '\n') as Output:
+        with open("Stock Data Output_test.csv", mode = "a", newline = '\n') as Output:
             csv_writer = csv.writer(Output, delimiter = ',')
-            company_name = str(self.profile_data['profile']['companyName'])
-            industry = str(self.profile_data['profile']['industry'])
-            sector = str(self.profile_data['profile']['sector'])
-            price = float(self.quote_data[0]['price'])            
-            eps = float(self.financial_data['financials'][0]['EPS'])
+            company_name = str(self.profile_data['Name'])
+            industry = str(self.profile_data['Industry'])
+            sector = str(self.profile_data['Sector'])
+            #price = float(self.quote_data[0]['price'])            
+            eps_annual = float(self.financial_data['annualEarnings'][0]['reportedEPS'])
+            eps_
             eps_growth = float(self.growth_data['growth'][0]['5Y Net Income Growth (per Share)'])
             research_cost = float(self.financial_data['financials'][0]['R&D Expenses'])/1000000
             pe_ratio = float(self.key_metrics_data['metrics'][0]['PE ratio'])
@@ -137,7 +138,7 @@ fmp = FinanceModelingPrep()
 api_key = "4P4EU3M6PAK0XAYR"
 
 #   """"Writes the header row to the csv file"""
-with open("Stock Data Output.csv", mode = "w") as Output:
+with open("Stock Data Output_test.csv", mode = "w") as Output:
     header = ['Ticker', 'Company Name', 'Sector', 'Industry', 'Price', 'EPS', 'EPS Growth (5 Yr)', 'R&D Expenses ($M)', 'PE', 'PS', 'P/B', 'P/CF', 'P/FCF', 'Operating Margin', 'Net Margin', 'Debt to Equity']                    
     csv_writer = csv.writer(Output, delimiter = ',')
     csv_writer.writerow(header)
